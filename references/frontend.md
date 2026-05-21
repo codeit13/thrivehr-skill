@@ -21,7 +21,7 @@
 | Path aliases | `@/` → `src/` (Vite + tsconfig) | Deep `../../../` imports |
 | Env vars | `VITE_*` only; no secrets in FE bundle | |
 | Error UX | Route `ErrorBoundary` + Axios mapper → sonner | Per-page alert divs |
-| Accessibility | **WCAG 2.1 AA** (focus, labels, contrast, keyboard) | Icon-only buttons without `aria-label` |
+| Accessibility | **WCAG 2.1 AA** — see [accessibility.md](accessibility.md) | Icon-only buttons without `aria-label`; `div` click handlers |
 | Responsive | **Mobile-first**; layouts work on phone, tablet, and desktop | Desktop-only fixed widths, horizontal scroll on mobile |
 | Theme modes | **Light + dark** supported; **light default**; user toggle persisted | Dark-only UI, no theme tokens |
 | UX quality | Clean, professional, easy navigation; clear hierarchy and feedback | Cluttered layouts, cryptic labels, inconsistent patterns |
@@ -292,6 +292,8 @@ All ThriveHR UI should feel **banking-grade**: calm, clear, and easy to scan —
 - [ ] Keyboard navigable; focus visible (burgundy ring)
 - [ ] Screen reader labels on icon-only controls
 - [ ] Primary flow completable without hunting for controls
+
+Full WCAG checklist, tooling, and patterns: **[accessibility.md](accessibility.md)**.
 
 ---
 

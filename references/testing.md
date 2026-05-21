@@ -10,7 +10,8 @@
 | BE HTTP | **Vitest + Supertest** + `app.inject()` | Routes, envelope, auth middleware |
 | AI unit | **Pytest** + **httpx** `AsyncClient` | Schemas, service logic |
 | AI evals | **Pytest** + eval harness | Golden datasets, regression, edge cases |
-| E2E | **Playwright** | Critical user journeys |
+| E2E | **Playwright** + **@axe-core/playwright** | Critical user journeys + WCAG scans |
+| A11y unit | **vitest-axe** | Component-level WCAG rule checks |
 | Production | Synthetic monitors + health checks | Audits, uptime |
 
 ---
@@ -49,7 +50,7 @@ export default defineConfig({
 
 ### What to Test
 
-- **Components**: render, user interactions, conditional rendering, accessibility
+- **Components**: render, user interactions, conditional rendering, **accessibility** (`vitest-axe`, `getByRole` / `getByLabelText`)
 - **Hooks**: custom hook behavior with `renderHook`
 - **Redux slices**: reducers and selectors (pure function tests)
 - **API integration**: mock Axios or use MSW to verify request/response handling
@@ -185,6 +186,31 @@ async def test_resume_parse_golden(case):
     assert result["skills"] == case["expected"]["skills"]
 ```
 
+### Accessibility (Vitest + axe)
+
+Every shared layout and form component should include at least one axe scan. Setup: [assets/accessibility-setup-template.md](../assets/accessibility-setup-template.md). Standards: [accessibility.md](accessibility.md).
+
+```typescript
+import { axe } from 'vitest-axe';
+import { render } from '@testing-library/react';
+
+test('Sidebar has no axe violations', async () => {
+  const { container } = render(<Sidebar />);
+  expect(await axe(container)).toHaveNoViolations();
+});
+```
+
+Prefer accessible queries in all UI tests:
+
+```typescript
+// Good
+screen.getByRole('button', { name: /save/i });
+screen.getByLabelText(/job title/i);
+
+// Avoid unless no semantic alternative
+screen.getByTestId('save-btn');
+```
+
 ---
 
 ## E2E Testing (Playwright)
@@ -193,6 +219,20 @@ async def test_resume_parse_golden(case):
 - Cover critical user journeys: login, apply to job, file upload, dashboard navigation
 - Run at least one spec with **mobile viewport** (e.g. iPhone 14) and one with desktop
 - Run in CI as an optional gate (not blocking, but tracked)
+
+### E2E accessibility (axe)
+
+Scan critical routes after auth setup. See [assets/accessibility-setup-template.md](../assets/accessibility-setup-template.md).
+
+```typescript
+import AxeBuilder from '@axe-core/playwright';
+
+test('jobs page WCAG 2.1 AA', async ({ page }) => {
+  await page.goto('/jobs');
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
+  expect(results.violations).toEqual([]);
+});
+```
 
 ```typescript
 // e2e/login.spec.ts
@@ -228,3 +268,4 @@ When adding a new feature, ensure:
 - [ ] If AI workflow: add eval suite entry with golden data
 - [ ] If new route: verify Swagger docs are generated
 - [ ] Coverage stays above 80%
+- [ ] UI: axe scan or manual a11y checklist per [accessibility.md](accessibility.md)

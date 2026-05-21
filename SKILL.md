@@ -40,6 +40,7 @@ description: Applies ThriveHR (Axis Bank) standards for job, ats, ai-orchestrato
 - **No PII in logs** — strip PII before external LLM APIs
 - **shadcn/ui + Tailwind v4** for all UI; **React Hook Form + Zod** for forms; **TanStack Table** for data tables
 - **Responsive UI** (mobile + desktop); **light + dark mode** (light default); clean, professional UX — see `frontend.md`
+- **WCAG 2.1 AA** on all UI — keyboard, labels, contrast, axe in tests — see `accessibility.md`
 - **Auth**: access token in memory; refresh via httpOnly cookie; never localStorage for tokens
 - **Vitest** for all new TypeScript tests (not Jest); 80% coverage minimum
 - **Prisma** only for Node ORM (no TypeORM/Drizzle); **SQLAlchemy** only for Python AI services
@@ -64,7 +65,7 @@ description: Applies ThriveHR (Axis Bank) standards for job, ats, ai-orchestrato
 | Dates | **date-fns** with `en-IN` locale |
 | Icons | **lucide-react**; toasts: **sonner** |
 | E2E | **Playwright** for critical flows |
-| Accessibility | **WCAG 2.1 AA** minimum |
+| Accessibility | **WCAG 2.1 AA** — keyboard, labels, contrast, axe in CI; see `accessibility.md` |
 | Path alias | `@/` → `src/` |
 | Brand colors | **Axis burgundy** `#971237` accent → shadcn `--primary`; tokens in `globals.css` only |
 | Responsive | Mobile-first; works on phone through desktop |
@@ -77,10 +78,13 @@ Read the relevant file **before generating code** in that domain:
 
 - **Building a Fastify service, API route, or Prisma schema** → [references/backend.md](references/backend.md)
 - **Building React UI, forms, tables, Redux slices, or Axios calls** → [references/frontend.md](references/frontend.md)
+- **WCAG 2.1 AA, keyboard nav, ARIA, contrast, or a11y testing** → [references/accessibility.md](references/accessibility.md)
 - **Building AI workflows, orchestrator calls, PII guard, or evals** → [references/ai.md](references/ai.md)
 - **Writing tests (any layer)** → [references/testing.md](references/testing.md)
 - **API envelope, naming conventions, settings table, or Swagger auth** → [references/core.md](references/core.md)
 - **Axios client template** → [assets/axios-client-template.md](assets/axios-client-template.md)
+- **A11y tooling (ESLint, vitest-axe, Playwright)** → [assets/accessibility-setup-template.md](assets/accessibility-setup-template.md)
+- **Skip link + index.html a11y baseline** → [assets/skip-to-content-template.md](assets/skip-to-content-template.md), [assets/index-html-a11y-template.md](assets/index-html-a11y-template.md)
 - **Fastify Swagger auth template** → [assets/fastify-swagger-auth-template.md](assets/fastify-swagger-auth-template.md)
 - **FastAPI Swagger auth template** → [assets/fastapi-swagger-auth-template.md](assets/fastapi-swagger-auth-template.md)
 - **CI/CD pipelines, Docker, or deployments** → [references/cicd.md](references/cicd.md)

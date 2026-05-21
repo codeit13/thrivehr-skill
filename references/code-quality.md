@@ -6,6 +6,7 @@
 - TypeScript-specific rules enabled
 - No `any` type — `@typescript-eslint/no-explicit-any: error`
 - Strict mode in `tsconfig.json`
+- **Frontend**: `eslint-plugin-jsx-a11y` recommended rules (WCAG-oriented static checks)
 
 Recommended extends:
 
@@ -15,10 +16,13 @@ Recommended extends:
     "eslint:recommended",
     "@typescript-eslint/recommended",
     "@typescript-eslint/recommended-type-checked",
+    "plugin:jsx-a11y/recommended",
     "prettier"
   ]
 }
 ```
+
+Install and configure in the UI app: [assets/accessibility-setup-template.md](../assets/accessibility-setup-template.md). Accessibility standards: [references/accessibility.md](../references/accessibility.md).
 
 ---
 
@@ -167,6 +171,8 @@ Recommended `.github/pull_request_template.md`:
 - [ ] Follows naming conventions (`TM_EXT_` on DB tables only; service names without prefix — see `core.md`)
 - [ ] UI responsive (mobile + desktop) and tested in light + dark mode (light default)
 - [ ] UX: clear labels, loading/empty/error states, professional layout (see `frontend.md`)
+- [ ] WCAG 2.1 AA: keyboard flow, focus visible, icon `aria-label`s, form errors linked (see `accessibility.md`)
+- [ ] axe / vitest-axe clean on new or changed UI components (or ticket for known violations)
 - [ ] Response envelope format verified
 - [ ] Reviewed for security (no secrets, input validated)
 

@@ -51,6 +51,7 @@ thrivehr/
 ├── references/
 │   ├── core.md               # Naming, settings table, API standards, Swagger auth
 │   ├── frontend.md           # React, shadcn/ui, responsive UI, light/dark themes, UX
+│   ├── accessibility.md    # WCAG 2.1 AA, ARIA, keyboard, contrast, a11y testing
 │   ├── backend.md            # Fastify, Prisma, Zod, DB standards, project structure
 │   ├── ai.md                 # AI inventory, orchestrator APIs, settings keys, Qdrant, security
 │   ├── testing.md            # Vitest, RTL, Supertest, Pytest, coverage
@@ -58,6 +59,9 @@ thrivehr/
 │   └── code-quality.md       # ESLint, Prettier, Husky, git branching, PR template
 └── assets/
     ├── axios-client-template.md
+    ├── accessibility-setup-template.md   # ESLint jsx-a11y, vitest-axe, Playwright axe
+    ├── skip-to-content-template.md
+    ├── index-html-a11y-template.md
     ├── fastify-swagger-auth-template.md
     └── fastapi-swagger-auth-template.md
 ```
